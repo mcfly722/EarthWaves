@@ -1,0 +1,84 @@
+<html>
+	<body>
+		<canvas id="canvas" width="1000" height="1000" style="border:1px solid #000000"></canvas>
+		
+		<script>
+		
+var canvas = document.getElementById("canvas");
+
+redraw(canvas,0,0);
+
+
+canvas.addEventListener("mousemove", function (evt) {
+    var mousePos = getMousePos(canvas, evt);
+
+	redraw(canvas, mousePos.x, mousePos.y);
+	
+}, false);
+
+//Get Mouse Position
+function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+    };
+}
+
+function line (ctx, x1,y1,x2,y2){
+	ctx.moveTo(500+x1*300, 500-y1*300);
+	ctx.lineTo(500+x2*300, 500-y2*300);
+	ctx.stroke();
+}
+
+function redraw(canvas,mouseX,mouseY){
+
+	var ctx = canvas.getContext("2d");
+	
+	ctx.clearRect(0,0,1000,1000);
+
+	ctx.lineWidth = 3;
+	
+	ctx.beginPath();
+	ctx.arc(500, 500, 300, 0, 2 * Math.PI);
+	ctx.stroke();
+
+	ctx.moveTo(500, 0);
+	ctx.lineTo(500, 1000);
+	ctx.stroke();
+
+	ctx.moveTo(0, 500);
+	ctx.lineTo(1000, 500);
+	ctx.stroke();
+	
+	var x = (mouseX-500)/300;
+	var y = (500-mouseY)/300;
+	
+	var a = Math.PI / 9;
+
+	var Ax = Math.cos(a);
+	var Ay = Math.sin(a);
+	
+	var cosB = (Ax-x) / Math.sqrt((Ax-x)*(Ax-x) + (Ay-y)*(Ay-y));
+	var sinB = (Ay-y) / Math.sqrt((Ax-x)*(Ax-x) + (Ay-y)*(Ay-y));
+	
+	var l = 2*(Ay*sinB + Ax*cosB);
+	
+	var Bx = Ax- l * cosB;
+	var By = Ay- l * sinB;
+	
+
+	if (Math.sqrt(x*x+y*y)<1) {
+	
+		line(ctx,0,0,x,y);
+		line(ctx,Ax,Ay,x,y);
+
+		line(ctx,x,y,Bx,By);
+	}
+
+	
+}
+
+		</script>
+	</body>
+</html>
