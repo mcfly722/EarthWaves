@@ -114,6 +114,11 @@ function redraw(canvas,mouseX,mouseY){
 	ctx.beginPath();
 	ctx.arc(500, 500, 500, 0, 2 * Math.PI);
 	ctx.stroke();
+	
+	ctx.beginPath();
+	ctx.fillStyle = "LIGHTgreen";
+	ctx.arc(1000, 500, 10, 0, 2 * Math.PI);
+	ctx.fill();
 
 	ctx.moveTo(500, 0);
 	ctx.lineTo(500, 1000);
@@ -122,6 +127,12 @@ function redraw(canvas,mouseX,mouseY){
 	ctx.moveTo(0, 500);
 	ctx.lineTo(1000, 500);
 	ctx.stroke();
+	
+	ctx.beginPath();
+	ctx.fillStyle = "red";
+	ctx.arc(mouseX, mouseY, 10, 0, 2 * Math.PI);
+	ctx.fill();
+
 	
 	var x = (mouseX-500)/500;
 	var y = (500-mouseY)/500;
